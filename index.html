@@ -396,6 +396,13 @@
       updateViewportMetaData();
     }
 
+    function capNumberDecimalPoints(number, points) {
+      const pattern = new RegExp(`^\\d+\\.\\d{${points + 1},}`);
+      if (pattern.test(number.toString()))
+        return number.toFixed(points);
+      return  number.toString();
+    }
+
     function updateViewportDimensions() {
       const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
       const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -403,11 +410,11 @@
 
       labelWidth.textContent = width;
       labelHeight.textContent = height;
-      labelPixelRatio.textContent = pixelRatio;
+      labelPixelRatio.textContent = capNumberDecimalPoints(pixelRatio, 5);
     }
 
     function updateViewportMetaData() {
-      labelWindowDevicePixelRatio.textContent = window.devicePixelRatio;
+      labelWindowDevicePixelRatio.textContent = capNumberDecimalPoints(window.devicePixelRatio, 5);
       labelWindowInnerHeight.textContent = window.innerHeight;
       labelWindowInnerWidth.textContent = window.innerWidth;
       labelWindowOuterHeight.textContent = window.outerHeight;
@@ -416,8 +423,8 @@
       labelDocumentElementClientWidth.textContent = document.documentElement.clientWidth;
       labelScreenWidth.textContent = window.screen.width;
       labelScreenHeight.textContent = window.screen.height;
-      labelScreenWidthRaw.textContent = window.screen.width * window.devicePixelRatio;
-      labelScreenHeightRaw.textContent = window.screen.height * window.devicePixelRatio;
+      labelScreenWidthRaw.textContent = capNumberDecimalPoints(window.screen.width * window.devicePixelRatio, 5);
+      labelScreenHeightRaw.textContent = capNumberDecimalPoints(window.screen.height * window.devicePixelRatio, 5);
       labelWindowScreenLeft.textContent = window.screenLeft;
       labelWindowScreenTop.textContent = window.screenTop;
     }
