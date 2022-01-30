@@ -53,6 +53,7 @@
     table tr:nth-child(even) {
       background-color: rgba(0, 0, 0, 0.05);
     }
+
     /*
     table td:not(tr:last-child td) {
       border-bottom: 0.1rem solid rgba(0,0,0,0.1);
@@ -197,7 +198,24 @@
   </div>
 
   <script>
-    window.addEventListener("load", doStartup, false);
+    const label = document.getElementById("label-dimensions");
+    const labelWidth = document.getElementById("label-dimensions-width");
+    const labelHeight = document.getElementById("label-dimensions-height");
+    const labelPixelRatio = document.getElementById("label-dimensions-pixel-ratio");
+
+    const labelWindowDevicePixelRatio = document.getElementById("label-window-device-pixel-ratio");
+    const labelWindowInnerHeight = document.getElementById("label-window-inner-height");
+    const labelWindowInnerWidth = document.getElementById("label-window-inner-width");
+    const labelWindowOuterHeight = document.getElementById("label-window-outer-height");
+    const labelWindowOuterWidth = document.getElementById("label-window-outer-width");
+    const labelDocumentElementClientHeight = document.getElementById("label-document-element-client-height");
+    const labelDocumentElementClientWidth = document.getElementById("label-document-element-client-width");
+    const labelWindowScreenLeft = document.getElementById("label-window-screen-left");
+    const labelWindowScreenTop = document.getElementById("label-window-screen-top");
+
+    const labelUserAgent = document.getElementById("label-user-agent");
+
+    window.addEventListener("DOMContentLoaded", doStartup, false);
 
     function doStartup(event) {
       initFullscreen(event);
@@ -232,20 +250,15 @@
     }
 
     function initViewportDimensions() {
-      window.addEventListener("resize", getViewportDimensions, false);
+      window.addEventListener("resize", updateViewportDimensions, false);
       // call the first time, so the labels are not empty until resizing 
-      getViewportDimensions();
+      updateViewportDimensions();
 
-      window.addEventListener("resize", getViewportMetaData, false);
-      getViewportMetaData();
+      window.addEventListener("resize", updateViewportMetaData, false);
+      updateViewportMetaData();
     }
 
-    function getViewportDimensions() {
-      const label = document.getElementById("label-dimensions");
-      const labelWidth = document.getElementById("label-dimensions-width");
-      const labelHeight = document.getElementById("label-dimensions-height");
-      const labelPixelRatio = document.getElementById("label-dimensions-pixel-ratio");
-
+    function updateViewportDimensions() {
       const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
       const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
       const pixelRatio = window.devicePixelRatio;
@@ -255,17 +268,7 @@
       labelPixelRatio.textContent = pixelRatio;
     }
 
-    function getViewportMetaData() {
-      const labelWindowDevicePixelRatio = document.getElementById("label-window-device-pixel-ratio");
-      const labelWindowInnerHeight = document.getElementById("label-window-inner-height");
-      const labelWindowInnerWidth = document.getElementById("label-window-inner-width");
-      const labelWindowOuterHeight = document.getElementById("label-window-outer-height");
-      const labelWindowOuterWidth = document.getElementById("label-window-outer-width");
-      const labelDocumentElementClientHeight = document.getElementById("label-document-element-client-height");
-      const labelDocumentElementClientWidth = document.getElementById("label-document-element-client-width");
-      const labelWindowScreenLeft = document.getElementById("label-window-screen-left");
-      const labelWindowScreenTop = document.getElementById("label-window-screen-top");
-
+    function updateViewportMetaData() {
       labelWindowDevicePixelRatio.textContent = window.devicePixelRatio;
       labelWindowInnerHeight.textContent = window.innerHeight;
       labelWindowInnerWidth.textContent = window.innerWidth;
@@ -278,7 +281,6 @@
     }
 
     function getUserAgent() {
-      const labelUserAgent = document.getElementById("label-user-agent");
       const userAgent = navigator.userAgent;
       labelUserAgent.textContent = userAgent;
     }
