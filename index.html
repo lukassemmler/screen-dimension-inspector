@@ -70,12 +70,10 @@
     }
 
     #container {
-      width: 100vw;
-      height: 100vh;
+      min-height: 100vh;
       box-sizing: border-box;
       margin: 0;
       padding: 1rem;
-      overflow: hidden;
       background-color: white;
     }
 
@@ -373,7 +371,7 @@
     }
 
     function toggleFullscreen() {
-      const elem = document.getElementsByTagName("body")[0];
+      const elem = document.getElementsByTagName("html")[0];
 
       elem.requestFullscreen = elem.requestFullscreen || elem.mozRequestFullscreen
         || elem.msRequestFullscreen || elem.webkitRequestFullscreen;
