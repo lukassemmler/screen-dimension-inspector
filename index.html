@@ -221,6 +221,8 @@
       initFullscreen(event);
       initViewportDimensions(event);
       getUserAgent();
+      // There is no event to listen for when the browser window is moved, so be simply poll the update function.
+      setInterval(updateViewportMetaData, 500); 
     }
 
     function initFullscreen(event) {
