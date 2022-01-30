@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Screen Dimension Inspector</title>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+
+  <style>
+    * {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    button {
+      display: block;
+      margin: 0 auto;
+      padding: 1rem 1.2rem;
+      box-shadow: rgba(0, 0, 0, 0.1) 0 0.2rem 0.5rem;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    code {
+      display: inline-block;
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.4rem;
+      font-family: Consolas, monospace;
+      font-size: 0.8rem;
+      background-color: #ddd;
+    }
+
+    small {
+      opacity: 0.4;
+    }
+
+    table {
+      border-spacing: 0;
+    }
+
+    table td {
+      padding: 0.4rem 0.8rem;
+      vertical-align: top;
+    }
+
+    table td:last-child {
+      text-align: right;
+      max-width: 8rem;
+    }
+
+    table tr:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    /*
+    table td:not(tr:last-child td) {
+      border-bottom: 0.1rem solid rgba(0,0,0,0.1);
+    }
+    */
+
+    .table-container {
+      border: 0.5rem solid rgba(0, 0, 0, 0.2);
+      overflow-x: auto;
+      border-radius: 1rem;
+    }
+
+    .table-container>table {
+      min-width: 22rem;
+      width: 100%;
+    }
+
+    #container {
+      width: 100vw;
+      height: 100vh;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 1rem;
+      overflow: hidden;
+      background-color: white;
+    }
+
+    #container-inner {
+      height: 100%;
+      overflow-y: auto;
+      margin: 0 auto;
+      max-width: 30rem;
+    }
+
+    #container-inner>p {
+      text-align: center;
+    }
+
+    #label-dimensions-width,
+    #label-dimensions-height {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    #label-dimensions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .label-dimension {
+      background-color: rgba(0, 0, 0, 0.1);
+      width: 7rem;
+      padding: 0.4rem;
+      border-radius: 0.5rem;
+    }
+
+    .label-separator {
+      padding: 1rem;
+    }
+
+    .label-dimension span {
+      display: block;
+      text-align: center;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="container-inner">
+      <button id="button-toggle-fullscreen">Toggle Fullscreen</button>
+
+      <div id="label-dimensions">
+        <div class="label-dimension">
+          <span id="label-dimensions-width">WIDTH</span>
+          <span>Width</span>
+        </div>
+        <div class="label-separator">
+          <span>&times;</span>
+        </div>
+        <div class="label-dimension">
+          <span id="label-dimensions-height">HEIGHT</span>
+          <span>Height</span>
+        </div>
+      </div>
+      <p>
+        Pixel Ratio:
+        <code id="label-dimensions-pixel-ratio">-1</code>
+      </p>
+
+      <div class="table-container">
+        <table>
+          <tbody>
+            <tr>
+              <td><code>window.devicePixelRatio</code></td>
+              <td><span id="label-window-device-pixel-ratio"></span></td>
+            </tr>
+            <tr>
+              <td><code>window.innerWidth</code></td>
+              <td><span id="label-window-inner-width">?</span> px</td>
+            </tr>
+            <tr>
+              <td><code>window.innerHeight</code></td>
+              <td><span id="label-window-inner-height">?</span> px</td>
+            </tr>
+            <tr>
+              <td><code>window.outerWidth</code></td>
+              <td><span id="label-window-outer-width">?</span> px</td>
+            </tr>
+            <tr>
+              <td><code>window.outerHeight</code></td>
+              <td><span id="label-window-outer-height">?</span> px</td>
+            </tr>
+            <tr>
+              <td><code>documentElement.clientHeight</code></td>
+              <td><span id="label-document-element-client-height">?</span> px</td>
+            </tr>
+            <tr>
+              <td><code>documentElement.clientWidth</code></td>
+              <td><span id="label-document-element-client-width">?</span> px</td>
+            </tr>
+            <tr>
+              <td><code>window.screenLeft</code></td>
+              <td><span id="label-window-screen-left">?</span> px</td>
+            </tr>
+            <tr>
+              <td><code>window.screenTop</code></td>
+              <td><span id="label-window-screen-top">?</span> px</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><span id="label-user-agent">User Agent unknown</span></p>
+
+      <p><small>Screen Dimension Inspector v1.1<br>Made by Lukas Semmler // 2022</small></p>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener("load", doStartup, false);
+
+    function doStartup(event) {
+      initFullscreen(event);
+      initViewportDimensions(event);
+      getUserAgent();
+    }
+
+    function initFullscreen(event) {
+      const fullscreenButton = document.getElementById("button-toggle-fullscreen");
+
+      document.fullscreenElement = document.fullscreenElement || document.mozFullscreenElement
+        || document.msFullscreenElement || document.webkitFullscreenDocument;
+      document.exitFullscreen = document.exitFullscreen || document.mozExitFullscreen
+        || document.msExitFullscreen || document.webkitExitFullscreen;
+
+      fullscreenButton.addEventListener("click", toggleFullscreen, false);
+    }
+
+    function toggleFullscreen() {
+      const elem = document.getElementsByTagName("body")[0];
+
+      elem.requestFullscreen = elem.requestFullscreen || elem.mozRequestFullscreen
+        || elem.msRequestFullscreen || elem.webkitRequestFullscreen;
+
+      if (!document.fullscreenElement) {
+        elem.requestFullscreen().then({}).catch(err => {
+          alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        });
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+
+    function initViewportDimensions() {
+      window.addEventListener("resize", getViewportDimensions, false);
+      // call the first time, so the labels are not empty until resizing 
+      getViewportDimensions();
+
+      window.addEventListener("resize", getViewportMetaData, false);
+      getViewportMetaData();
+    }
+
+    function getViewportDimensions() {
+      const label = document.getElementById("label-dimensions");
+      const labelWidth = document.getElementById("label-dimensions-width");
+      const labelHeight = document.getElementById("label-dimensions-height");
+      const labelPixelRatio = document.getElementById("label-dimensions-pixel-ratio");
+
+      const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      const pixelRatio = window.devicePixelRatio;
+
+      labelWidth.textContent = width;
+      labelHeight.textContent = height;
+      labelPixelRatio.textContent = pixelRatio;
+    }
+
+    function getViewportMetaData() {
+      const labelWindowDevicePixelRatio = document.getElementById("label-window-device-pixel-ratio");
+      const labelWindowInnerHeight = document.getElementById("label-window-inner-height");
+      const labelWindowInnerWidth = document.getElementById("label-window-inner-width");
+      const labelWindowOuterHeight = document.getElementById("label-window-outer-height");
+      const labelWindowOuterWidth = document.getElementById("label-window-outer-width");
+      const labelDocumentElementClientHeight = document.getElementById("label-document-element-client-height");
+      const labelDocumentElementClientWidth = document.getElementById("label-document-element-client-width");
+      const labelWindowScreenLeft = document.getElementById("label-window-screen-left");
+      const labelWindowScreenTop = document.getElementById("label-window-screen-top");
+
+      labelWindowDevicePixelRatio.textContent = window.devicePixelRatio;
+      labelWindowInnerHeight.textContent = window.innerHeight;
+      labelWindowInnerWidth.textContent = window.innerWidth;
+      labelWindowOuterHeight.textContent = window.outerHeight;
+      labelWindowOuterWidth.textContent = window.outerWidth;
+      labelDocumentElementClientHeight.textContent = window.screenTop;
+      labelDocumentElementClientWidth.textContent = window.screenLeft;
+      labelWindowScreenLeft.textContent = document.documentElement.clientWidth;
+      labelWindowScreenTop.textContent = document.documentElement.clientHeight;
+    }
+
+    function getUserAgent() {
+      const labelUserAgent = document.getElementById("label-user-agent");
+      const userAgent = navigator.userAgent;
+      labelUserAgent.textContent = userAgent;
+    }
+  </script>
+</body>
+
+</html>
