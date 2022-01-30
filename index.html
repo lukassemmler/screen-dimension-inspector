@@ -222,6 +222,19 @@
             <tr>
               <td>
                 <details>
+                  <summary><code>documentElement.clientWidth</code></summary>
+                  <p>
+                    Width of the document. Exludes the width of the vertical scrollbar, if present.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/clientHeight"
+                      title="Element.clientHeight - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-document-element-client-width">?</span>&nbsp;px</td>
+            </tr>
+            <tr>
+              <td>
+                <details>
                   <summary><code>documentElement.clientHeight</code></summary>
                   <p>
                     Height of the document. Exludes the height of the horizontal scrollbar, if present.
@@ -235,15 +248,28 @@
             <tr>
               <td>
                 <details>
-                  <summary><code>documentElement.clientWidth</code></summary>
+                  <summary><code>window.screen.width</code></summary>
                   <p>
-                    Width of the document. Exludes the width of the vertical scrollbar, if present.
-                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/clientHeight"
-                      title="Element.clientHeight - Web APIs | MDN" rel="external">See MDN</a>
+                    Width of the current display in pixel.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen/width"
+                      title="Screen.width - Web APIs | MDN" rel="external">See MDN</a>
                   </p>
                 </details>
               </td>
-              <td><span id="label-document-element-client-width">?</span>&nbsp;px</td>
+              <td><span id="label-window-screen-width">?</span>&nbsp;px</td>
+            </tr>
+            <tr>
+              <td>
+                <details>
+                  <summary><code>window.screen.height</code></summary>
+                  <p>
+                    Height of the current display in pixel.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen/height"
+                      title="Screen.height - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-window-screen-height">?</span>&nbsp;px</td>
             </tr>
             <tr>
               <td>
@@ -294,6 +320,8 @@
     const labelWindowOuterWidth = document.getElementById("label-window-outer-width");
     const labelDocumentElementClientHeight = document.getElementById("label-document-element-client-height");
     const labelDocumentElementClientWidth = document.getElementById("label-document-element-client-width");
+    const labelScreenWidth = document.getElementById("label-window-screen-width");
+    const labelScreenHeight = document.getElementById("label-window-screen-height");
     const labelWindowScreenLeft = document.getElementById("label-window-screen-left");
     const labelWindowScreenTop = document.getElementById("label-window-screen-top");
 
@@ -362,6 +390,8 @@
       labelWindowOuterWidth.textContent = window.outerWidth;
       labelDocumentElementClientHeight.textContent = document.documentElement.clientHeight;
       labelDocumentElementClientWidth.textContent = document.documentElement.clientWidth;
+      labelScreenWidth.textContent = window.screen.width;
+      labelScreenHeight.textContent = window.screen.height;
       labelWindowScreenLeft.textContent = window.screenLeft;
       labelWindowScreenTop.textContent = window.screenTop;
     }
