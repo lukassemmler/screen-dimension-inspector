@@ -54,6 +54,10 @@
       background-color: rgba(0, 0, 0, 0.05);
     }
 
+    summary {
+      cursor: pointer;
+    }
+
     .table-container {
       border: 0.5rem solid rgba(0, 0, 0, 0.2);
       overflow-x: auto;
@@ -146,40 +150,126 @@
         <table>
           <tbody>
             <tr>
-              <td><code>window.devicePixelRatio</code></td>
+              <td>
+                <details>
+                  <summary><code>window.devicePixelRatio</code></summary>
+                  <p>
+                    Ratio of <em>physical pixels</em> to <em>CSS pixels</em> for the current display device.
+                    The ratio can be influenced by the display density, OS UI scaling and browser zooming of the user.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/screenLeft"
+                      title="Window.screenLeft - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
               <td><span id="label-window-device-pixel-ratio"></span></td>
             </tr>
             <tr>
-              <td><code>window.innerWidth</code></td>
-              <td><span id="label-window-inner-width">?</span> px</td>
+              <td>
+                <details>
+                  <summary><code>window.innerWidth</code></summary>
+                  <p>
+                    Width of the inside of the browser window in pixels.
+                    This includes the width of a vertical scrollbar, if is present.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth"
+                      title="Window.innerWidth - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-window-inner-width">?</span>&nbsp;px</td>
             </tr>
             <tr>
-              <td><code>window.innerHeight</code></td>
-              <td><span id="label-window-inner-height">?</span> px</td>
+              <td>
+                <details>
+                  <summary><code>window.innerHeight</code></summary>
+                  <p>
+                    Height of the inside of the browser window in pixels.
+                    This includes the height of a horizontal scrollbar, if is present.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/innerHeight"
+                      title="Window.innerHeight - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-window-inner-height">?</span>&nbsp;px</td>
             </tr>
             <tr>
-              <td><code>window.outerWidth</code></td>
-              <td><span id="label-window-outer-width">?</span> px</td>
+              <td>
+                <details>
+                  <summary><code>window.outerWidth</code></summary>
+                  <p>
+                    Width of the outside browser window in pixels. This includes the width of a sidebar (if present),
+                    window chrome and window borders.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/outerWidth"
+                      title="Window.outerWidth - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-window-outer-width">?</span>&nbsp;px</td>
             </tr>
             <tr>
-              <td><code>window.outerHeight</code></td>
-              <td><span id="label-window-outer-height">?</span> px</td>
+              <td>
+                <details>
+                  <summary><code>window.outerHeight</code></summary>
+                  <p>
+                    Height of the outside browser window in pixels. This includes the height of a sidebar (if present),
+                    window chrome and window borders.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/outerHeight"
+                      title="Window.outerHeight - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-window-outer-height">?</span>&nbsp;px</td>
             </tr>
             <tr>
-              <td><code>documentElement.clientHeight</code></td>
-              <td><span id="label-document-element-client-height">?</span> px</td>
+              <td>
+                <details>
+                  <summary><code>documentElement.clientHeight</code></summary>
+                  <p>
+                    Height of the document. Exludes the height of the horizontal scrollbar, if present.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/clientHeight"
+                      title="Element.clientHeight - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-document-element-client-height">?</span>&nbsp;px</td>
             </tr>
             <tr>
-              <td><code>documentElement.clientWidth</code></td>
-              <td><span id="label-document-element-client-width">?</span> px</td>
+              <td>
+                <details>
+                  <summary><code>documentElement.clientWidth</code></summary>
+                  <p>
+                    Width of the document. Exludes the width of the vertical scrollbar, if present.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/clientHeight"
+                      title="Element.clientHeight - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-document-element-client-width">?</span>&nbsp;px</td>
             </tr>
             <tr>
-              <td><code>window.screenLeft</code></td>
-              <td><span id="label-window-screen-left">?</span> px</td>
+              <td>
+                <details>
+                  <summary><code>window.screenLeft</code></summary>
+                  <p>
+                    Distance from the left side of the screen to the left border of the browser window in pixels.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/screenLeft"
+                      title="Window.screenLeft - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-window-screen-left">?</span>&nbsp;px</td>
             </tr>
             <tr>
-              <td><code>window.screenTop</code></td>
-              <td><span id="label-window-screen-top">?</span> px</td>
+              <td>
+                <details>
+                  <summary><code>window.screenTop</code></summary>
+                  <p>
+                    Distance from the top side of the screen to the top border of the browser window in pixels.
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/screenTop"
+                      title="Window.screenTop - Web APIs | MDN" rel="external">See MDN</a>
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-window-screen-top">?</span>&nbsp;px</td>
             </tr>
           </tbody>
         </table>
@@ -216,7 +306,7 @@
       initViewportDimensions(event);
       getUserAgent();
       // There is no event to listen for when the browser window is moved, so be simply poll the update function.
-      setInterval(updateViewportMetaData, 500); 
+      setInterval(updateViewportMetaData, 500);
     }
 
     function initFullscreen(event) {
