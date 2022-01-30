@@ -274,6 +274,28 @@
             <tr>
               <td>
                 <details>
+                  <summary><code>window.screen.width</code> (raw)</summary>
+                  <p>
+                    <code>window.screen.width</code>, but scaled with <code>window.devicePixelRatio</code>.
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-window-screen-width-raw">?</span>&nbsp;px</td>
+            </tr>
+            <tr>
+              <td>
+                <details>
+                  <summary><code>window.screen.height</code> (raw)</summary>
+                  <p>
+                    <code>window.screen.height</code>, but scaled with <code>window.devicePixelRatio</code>.
+                  </p>
+                </details>
+              </td>
+              <td><span id="label-window-screen-height-raw">?</span>&nbsp;px</td>
+            </tr>
+            <tr>
+              <td>
+                <details>
                   <summary><code>window.screenLeft</code></summary>
                   <p>
                     Distance from the left side of the screen to the left border of the browser window in pixels.
@@ -322,6 +344,8 @@
     const labelDocumentElementClientWidth = document.getElementById("label-document-element-client-width");
     const labelScreenWidth = document.getElementById("label-window-screen-width");
     const labelScreenHeight = document.getElementById("label-window-screen-height");
+    const labelScreenWidthRaw = document.getElementById("label-window-screen-width-raw");
+    const labelScreenHeightRaw = document.getElementById("label-window-screen-height-raw");
     const labelWindowScreenLeft = document.getElementById("label-window-screen-left");
     const labelWindowScreenTop = document.getElementById("label-window-screen-top");
 
@@ -392,6 +416,8 @@
       labelDocumentElementClientWidth.textContent = document.documentElement.clientWidth;
       labelScreenWidth.textContent = window.screen.width;
       labelScreenHeight.textContent = window.screen.height;
+      labelScreenWidthRaw.textContent = window.screen.width * window.devicePixelRatio;
+      labelScreenHeightRaw.textContent = window.screen.height * window.devicePixelRatio;
       labelWindowScreenLeft.textContent = window.screenLeft;
       labelWindowScreenTop.textContent = window.screenTop;
     }
